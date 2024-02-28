@@ -2,29 +2,14 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class MovieCollection {
-
-    /*
-    private Movie[] movieList;
-    int count = 0;
-
-    public MovieCollection() {
-        this.movieList = new Movie[5];
-    }
-
-    public void addMovie (String title, String director, int yearCreated, boolean isInColor, int lengthInMinutes, String genre) {
-    movieList[count++] = new Movie( title, director,yearCreated,isInColor,lengthInMinutes,genre);
-    }
-
-     public Movie[] getMovielist() {
-        return movieList;
-    }
-     */
+    Scanner scan = new Scanner(System.in);
 
     private ArrayList<Movie> movieList = new ArrayList<>();
 
     public ArrayList<Movie> getMovieCollection() {
         return movieList;
     }
+
 
     public void addMovie(String title, String director, int yearCreated, boolean isInColor, int lengthInMinutes, String genre) {
         Movie movieToAdd = new Movie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
@@ -38,8 +23,7 @@ public class MovieCollection {
             System.out.println("Year created: " + movieList.get(i).getYearCreated());
             if (movieList.get(i).getIsInColor()) {
                 System.out.println("Movie in color: yes");
-            }
-            else {
+            } else {
                 System.out.println("Movie in color: no");
             }
             System.out.println("Movie length: " + movieList.get(i).getLengthInMinutes() + " minutes");
@@ -50,14 +34,65 @@ public class MovieCollection {
 
     public void searchMovie(String title) {
         ArrayList<Movie> searchMovieResult = new ArrayList<>();
-        for (int i=0;i<movieList.size();i++) {
-            if (movieList.get(i).equals(movieList.get(i).getTitle())) {
-                searchMovieResult.add(movieList.get(i));
-                System.out.println(searchMovieResult.get(i).getTitle());
+        for (Movie movie : movieList) {
+            if (movie.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                searchMovieResult.add(movie);
             }
-            else {
-                System.out.println("Movie collection does not contain a movie of that title");
+        }
+        if (searchMovieResult.isEmpty()) {
+            System.out.println("Movie collection does not contain a movie of that title");
+        } else {
+            for (Movie searchMovieTitle : searchMovieResult) {
+                System.out.println(searchMovieTitle.getTitle());
             }
+        }
+    }
+
+    public void editMovie() {
+        System.out.println("Enter titel of the movie you want to edit");
+        String title = scan.nextLine();
+        for (Movie movie : movieList) {
+            if (movie.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                System.out.println("What do you want to edit?");
+                System.out.println("1. Edit title");
+                System.out.println("2. Edit director");
+                System.out.println("3. Edit year created");
+                System.out.println("4. Edit movie color");
+                System.out.println("5. Edit movie length");
+                System.out.println("6. Edit movie genre");
+                int editChoice = scan.nextInt();
+                if (editChoice == 1) {
+                    System.out.println("Edit title:");
+                    scan.nextLine();
+                    movie.setTitle(scan.nextLine());
+                } else if (editChoice == 2) {
+                    System.out.println("Edit director:");
+                    movie.setDirector(scan.nextLine());
+                } else if (editChoice == 3) {
+                    System.out.println("Edit year created:");
+                    movie.setYearCreated(scan.nextInt());
+                } else if (editChoice == 4) {
+                    System.out.println("Edit if the movie is in color or not (true/false):");
+                    movie.setInColor(scan.nextBoolean());
+                } else if (editChoice == 5) {
+                    System.out.println("Edit movie length in minutes:");
+                    movie.setLengthInMinutes(scan.nextInt());
+                } else if (editChoice == 6) {
+                    System.out.println("Edit the genre of the movie:");
+                    scan.nextLine();
+                    movie.setGenre(scan.nextLine());
+                }
+
+                System.out.println("Movie details was updated successfully");
+
+                movieList.add(movie);
+                break;
+            } else {
+                System.out.println("Your movie collection does not contain a movie of the titel " + title);
+
+
+            }
+
         }
     }
 }

@@ -13,5 +13,8 @@ public class Controller {
     public void searchMovieInMovieList(String title) {
         movieList.searchMovie(title);
     }
+    public void editMovieInMovieList() {
+        movieList.editMovie();
+    }
 
-}
+    }
