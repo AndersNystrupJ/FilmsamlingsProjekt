@@ -61,6 +61,7 @@ public class MovieCollection {
                 System.out.println("4. Edit movie color");
                 System.out.println("5. Edit movie length");
                 System.out.println("6. Edit movie genre");
+                System.out.println("7. Delete movie from movie collection");
                 int editChoice = scan.nextInt();
                 if (editChoice == 1) {
                     System.out.println("Edit title:");
@@ -93,17 +94,18 @@ public class MovieCollection {
                     System.out.println("Edit the genre of the movie:");
                     scan.nextLine();
                     movie.setGenre(scan.nextLine());
+                } else if (editChoice == 7) {
+                    movieList.remove(movie);
                 }
 
                 System.out.println("Movie details was updated successfully");
 
-                movieList.add(movie);
                 break;
-            } else {
+            }
                 System.out.println("Your movie collection does not contain a movie of the titel " + title);
 
 
-            }
+
 
         }
     }
